@@ -1,0 +1,7 @@
+LEC-i.MX95 Module
+M:	Dinesh kumar v <dinesh.v@adlinktech.com>
+S:	Maintained
+F:	board/adlink/
+F:	include/configs/lec_imx95.h
+F:	configs/lec-imx95_defconfig
+F:	doc/board/adlink/lec-imx95.rst

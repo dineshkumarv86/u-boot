@@ -1,0 +1,21 @@
+if TARGET_LEC_IMX95 
+
+config SYS_BOARD
+	default "lec_imx95"
+
+config SYS_VENDOR
+	default "adlink"
+
+config SYS_CONFIG_NAME
+	default "lec_imx95"
+
+endif
+
+if TARGET_LEC_IMX95
+
+config SKUGPIO
+	bool
+	default y
+
+endif
+
