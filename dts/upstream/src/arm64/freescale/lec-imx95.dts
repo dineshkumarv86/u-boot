@@ -1,0 +1,239 @@
+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
+/*
+ * Copyright (C) 2026 Adlink
+ *
+ * https://www.adlinktech.com/products/Computer_on_Modules/SMARC/LEC-IMX95
+ * https://www.adlinktech.com/products/computer_on_modules/SMARCStarterKits/I-Pi_SMARC_IMX95
+ */
+
+/dts-v1/;
+
+#include <dt-bindings/pwm/pwm.h>
+#include <dt-bindings/usb/pd.h>
+#include "lec-imx95.dtsi"
+
+/ {
+	model = "Adlink LEC iMX95 on I-Pi SMARC Development Board";
+	compatible = "adlink,lec-imx95",
+		     "fsl,imx95";
+
+
+	reg_pcie0: regulator-pcie0 {
+		compatible = "regulator-fixed";
+		regulator-name = "PCIE_WLAN_EN";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		//gpio = <&i2c2_gpio_expander_71 3 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+		regulator-always-on;
+	};
+
+};
+
+
+/* eMMC */
+&usdhc2 {
+	status = "okay";
+	bus-width = <8>;
+	non-removable;
+};
+
+/* SD Card */
+&usdhc1 {
+	status = "okay";
+	bus-width = <4>;
+};
+
+&lpi2c1 {
+	status = "okay";
+
+	/* TPM */
+	tpm@2e {
+		compatible = "tcg,tpm_tis-i2c";
+		reg = <0x2e>;
+		status = "okay";
+	};
+
+};
+
+
+&lpi2c2 {
+	clock-frequency = <400000>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_lpi2c2>;
+	status = "okay";
+
+	/* U1000 SX1509BIULTRT: SMARC resets, incl. PCIEA/PCIEB 
+	i2c2_gpio_expander_71: gpio@71 {
+		compatible = "semtech,sx1509q";
+		reg = <0x71>;
+		#gpio-cells = <2>;
+		gpio-controller;
+		semtech,probe-reset;
+	};*/
+};
+
+
+&lpi2c3 {
+	status = "okay";
+
+	/* NXP PCF8563B RTC */
+	rtc: rtc@51 {
+		compatible = "nxp,pcf8563";
+		reg = <0x51>;
+
+		status = "okay";
+	};
+};
+
+&lpi2c4 {
+        status = "okay";
+};
+
+&lpi2c5 {
+        status = "okay";
+};
+
+&lpi2c6 {
+        status = "okay";
+};
+
+&lpi2c7 {
+        status = "okay";
+};
+
+
+/* Ethernet SMARC GBE0*/
+&enetc_port0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_enetc0>;
+	phy-handle = <&ethphy0>;
+	phy-mode = "rgmii-id";
+	status = "okay";
+
+};
+
+/* Ethernet SMARC GBE1 */
+&enetc_port1 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_enetc1>;
+ 	phy-handle = <&ethphy1>;
+ 	phy-mode = "rgmii-id";
+ 	status = "okay";
+};
+
+&netc_emdio {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_emdio>;
+	status = "okay";
+
+	ethphy0: ethernet-phy@1 {
+		reg = <1>;
+		eee-broken-1000t;
+		reset-assert-us = <10000>;
+		reset-deassert-us = <80000>;
+	};
+
+ 	ethphy1: ethernet-phy@4 {
+ 		reg = <4>;
+ 		eee-broken-1000t;
+ 		reset-assert-us = <10000>;
+ 		reset-deassert-us = <80000>;
+ 	};
+
+	ethphy2: ethernet-phy@8 {
+		compatible = "ethernet-phy-ieee802.3-c45";
+		reg = <8>;
+	};
+};
+
+&netcmix_blk_ctrl {
+       status = "okay";
+};
+
+&netc_blk_ctrl {
+       status = "okay";
+};
+
+&netc_timer {
+       status = "okay";
+};
+
+ 
+
+
+/* SMARC SPI0 */
+&lpspi6 {
+	status = "okay";
+};
+
+/* SMARC SER1, used as the Linux Console */
+&lpuart1 {
+	/* console */
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart1>;
+	status = "okay";
+};
+
+/* SMARC SER0, RS485 */
+&lpuart2 {
+	status = "okay";
+};
+
+/* SMARC SER3, RS232 */
+&lpuart3 {
+	status = "okay";
+};
+
+/* SMARC PCIE_A / M2 Key B */
+&pcie0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_pcie0>;
+	reset-gpio = <&gpio2 0 GPIO_ACTIVE_LOW>;
+	vpcie-supply = <&reg_pcie0>;
+	status = "okay";
+};
+
+/* SMARC PCIE_B /  M2 Key E */
+&pcie1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_pcie1>;
+	reset-gpio = <&gpio2 0 GPIO_ACTIVE_LOW>;
+	status = "okay";
+};
+
+/* SMARC USB0 */
+&usb2 {
+	dr_mode = "host";
+	hnp-disable;
+	srp-disable;
+	adp-disable;
+	disable-over-current;
+	status = "okay";
+};
+
+&usb3 {
+	status = "okay";
+};
+
+&usb3_phy {
+	status = "okay";
+};
+
+&usb3_dwc3 {
+	dr_mode = "host";
+	hnp-disable;
+	srp-disable;
+	adp-disable;
+	usb-role-switch;
+	role-switch-default-mode = "none";
+	snps,dis-u1-entry-quirk;
+	snps,dis-u2-entry-quirk;
+	status = "okay";
+};
+
+
+/* SMARC SDIO */
+&usdhc2 {
+	status = "okay";
+};
