@@ -5,7 +5,7 @@
  * https://www.adlinktech.com/products/Computer_on_Modules/SMARC/LEC-IMX95
  * https://www.adlinktech.com/products/computer_on_modules/SMARCStarterKits/I-Pi_SMARC_IMX95
  */
- 
+
 #include <dt-bindings/input/input.h>
 #include <dt-bindings/net/ti-dp83867.h>
 #include "imx95.dtsi"

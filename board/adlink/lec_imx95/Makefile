@@ -4,7 +4,7 @@
 # SPDX-License-Identifier:      GPL-2.0+
 #
 
-obj-y += lec_imx95.o 
+obj-y += lec_imx95.o
 
 ifdef CONFIG_SPL_BUILD
 obj-y += spl.o

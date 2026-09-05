@@ -1,4 +1,4 @@
-if TARGET_LEC_IMX95 
+if TARGET_LEC_IMX95
 
 config SYS_BOARD
 	default "lec_imx95"

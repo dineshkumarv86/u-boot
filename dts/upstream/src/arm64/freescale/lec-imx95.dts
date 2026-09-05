@@ -63,7 +63,7 @@
 	pinctrl-0 = <&pinctrl_lpi2c2>;
 	status = "okay";
 
-	/* U1000 SX1509BIULTRT: SMARC resets, incl. PCIEA/PCIEB 
+	/* U1000 SX1509BIULTRT: SMARC resets, incl. PCIEA/PCIEB
 	i2c2_gpio_expander_71: gpio@71 {
 		compatible = "semtech,sx1509q";
 		reg = <0x71>;
@@ -115,11 +115,11 @@
 
 /* Ethernet SMARC GBE1 */
 &enetc_port1 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_enetc1>;
- 	phy-handle = <&ethphy1>;
- 	phy-mode = "rgmii-id";
- 	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_enetc1>;
+	phy-handle = <&ethphy1>;
+	phy-mode = "rgmii-id";
+	status = "okay";
 };
 
 &netc_emdio {
@@ -134,12 +134,12 @@
 		reset-deassert-us = <80000>;
 	};
 
- 	ethphy1: ethernet-phy@4 {
- 		reg = <4>;
- 		eee-broken-1000t;
- 		reset-assert-us = <10000>;
- 		reset-deassert-us = <80000>;
- 	};
+	ethphy1: ethernet-phy@4 {
+		reg = <4>;
+		eee-broken-1000t;
+		reset-assert-us = <10000>;
+		reset-deassert-us = <80000>;
+	};
 
 	ethphy2: ethernet-phy@8 {
 		compatible = "ethernet-phy-ieee802.3-c45";
@@ -159,7 +159,7 @@
        status = "okay";
 };
 
- 
+
 
 
 /* SMARC SPI0 */
